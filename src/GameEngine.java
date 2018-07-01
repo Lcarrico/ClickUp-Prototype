@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  */
 public class GameEngine extends JFrame {
 	boolean isRunning = true;
-	int fps = 30;
+	int fps = 300;
 	static int windowWidth = 500;
 	static int windowHeight = 500;
 
