@@ -33,10 +33,8 @@ public class Game extends GameEngine {
 
 		Game g = new Game();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		windowWidth = (int) screenSize.getWidth();
-		windowHeight = (int) screenSize.getHeight();
-		g.setExtendedState(MAXIMIZED_BOTH);
-		g.setUndecorated(true);
+		windowWidth = 540;
+		windowHeight = 960;
 		g.setVisible(true);
 		g.init();
 		g.run();
@@ -47,15 +45,6 @@ public class Game extends GameEngine {
 	void init() {
 		circle = new Ellipse2D.Double(0, 0, 50, 50);
 		square = new Rectangle2D.Double(30, 60, 50, 50);
-		
-		// Creates new 16 by 16 blank image
-		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-
-		// Create a new blank cursor.
-		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-
-		// Set the blank cursor to the JFrame.
-		getContentPane().setCursor(blankCursor);
 	}
 	
 	boolean canMove(int xSpeed, int ySpeed) {
