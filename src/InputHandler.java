@@ -1,4 +1,5 @@
 import java.awt.Component;
+import java.awt.Insets;
 import java.awt.event.*;
 
 /**
@@ -11,11 +12,13 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private int clicks = 0;
 	private int mouseX = 0;
 	private int mouseY = 0;
+	private Insets insets;
 
-	public InputHandler(Component c) {
+	public InputHandler(Component c, Insets insets) {
 		c.addKeyListener(this);
 		c.addMouseListener(this);
 		c.addMouseMotionListener(this);
+		this.insets = insets;
 	}
 
 	public boolean isKeyDown(int keyCode) {
@@ -47,11 +50,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 
 	public int MouseX() {
-		return mouseX;
+		return insets.left + mouseX;
 	}
 
 	public int MouseY() {
-		return mouseY;
+		return mouseY - insets.top;
 	}
 
 	// event handlers for keys

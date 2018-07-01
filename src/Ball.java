@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 public class Ball {
 	double xAcc = 0;
@@ -30,10 +31,26 @@ public class Ball {
 		
 	}
 	
-	public void update() {
+	public void update(InputHandler input) {
+		if (input.wasClicked()) {
+			kickBall(input);
+		}
 		
+		xVel += xAcc;
+		yVel += yAcc;
+		body.x += xVel;
+		body.y += yVel;
 	}
 	
+	private void kickBall(InputHandler input) {
+		Point2D.Double click = new Point2D.Double(input.MouseX(), input.MouseY());
+		
+		if (body.contains(click)) {
+			yVel = -1;
+		}
+		
+	}
+
 	public void draw(Graphics2D g) {
 		g.setColor(color);
 		g.fill(body);

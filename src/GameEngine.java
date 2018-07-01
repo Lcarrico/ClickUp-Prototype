@@ -59,7 +59,7 @@ public class GameEngine extends JFrame {
 		setSize(insets.left + windowWidth + insets.right, insets.top + windowHeight + insets.bottom);
 
 		backBuffer = new BufferedImage(windowWidth, windowHeight, BufferedImage.TYPE_INT_RGB);
-		input = new InputHandler(this);
+		input = new InputHandler(this, insets);
 	}
 
 	/**

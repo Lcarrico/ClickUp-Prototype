@@ -2,12 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Ellipse2D;
 public class Game extends GameEngine {
 
 	Ball ball;
 	public static void main(String[] args) {
-
 		Game g = new Game();
 		windowWidth = 540;
 		windowHeight = 960;
@@ -15,7 +13,6 @@ public class Game extends GameEngine {
 		g.init();
 		g.run();
 		System.exit(0);
-
 	}
 
 	void init() {
@@ -26,6 +23,9 @@ public class Game extends GameEngine {
 	}
 
 	void update() {
+		ball.update(input);
+		
+		
 		if (input.isKeyDown(KeyEvent.VK_ESCAPE)) {
 			isRunning = false;
 		}
@@ -41,7 +41,5 @@ public class Game extends GameEngine {
 		
 		g2d.setColor(Color.WHITE);
 		ball.draw(g2d);
-
 	}
-
 }
