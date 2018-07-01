@@ -1,38 +1,14 @@
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 public class Game extends GameEngine {
 
-	static final int UP = 0;
-	static final int RIGHT = 1;
-	static final int DOWN = 2;
-	static final int LEFT = 3;
-	int size = 20;
-	int dir = RIGHT;
-	int speed = 5;
-	Rectangle2D.Double square;
-	Ellipse2D.Double circle;
-	int gravity = 6;
-	int xVel = 0;
-	int yVel = 0;
-	
-	
-	//ArrayList<Rectangle2D.Double> circles = new ArrayList<Rectangle2D.Double>();
-
+	Ball ball;
 	public static void main(String[] args) {
 
 		Game g = new Game();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		windowWidth = 540;
 		windowHeight = 960;
 		g.setVisible(true);
@@ -43,53 +19,28 @@ public class Game extends GameEngine {
 	}
 
 	void init() {
-		circle = new Ellipse2D.Double(0, 0, 50, 50);
-		square = new Rectangle2D.Double(30, 60, 50, 50);
-	}
-	
-	boolean canMove(int xSpeed, int ySpeed) {
-		Ellipse2D.Double c = new Ellipse2D.Double(circle.x + xSpeed, circle.y + ySpeed, circle.width, circle.height);
-		return !c.intersects(square);
+		ball = new Ball();
+		
+		ball.body.x = windowWidth/2 - ball.body.width/2;
+		ball.body.y = windowHeight - ball.body.height;
 	}
 
 	void update() {
-		if (input.isKeyDown(KeyEvent.VK_D)) {
-			dir = RIGHT;
-		}
-		
-		if (dir == RIGHT && canMove(speed, 0)) {
-			circle.x += speed;
-		}
-		
-		
-		if (input.isKeyDown(KeyEvent.VK_A)) {
-			dir = LEFT;
-		}
-		
-		if (dir == LEFT && canMove(-speed, 0)) {
-			circle.x -= speed;
-		}
-		
-		
-		if (input.isKeyDown(KeyEvent.VK_S) && canMove(0, speed)) {
-			circle.y += speed;
-		}
-		if (input.isKeyDown(KeyEvent.VK_W) && canMove(0, -speed)) {
-			circle.y -= speed;
-		}
 		if (input.isKeyDown(KeyEvent.VK_ESCAPE)) {
 			isRunning = false;
 		}
 	}
 
 	void draw(Graphics g) {
-		g = (Graphics2D) g;
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, windowWidth, windowHeight);
-
-		g.setColor(Color.WHITE);
-		g.drawOval((int) circle.x, (int) circle.y, (int) circle.width, (int) circle.height);
-		g.fillRect((int) square.x, (int) square.y, (int) square.width, (int) square.height);
+		//adds Graphics2D cast to g for easier graphics rendering
+		Graphics2D g2d = (Graphics2D) g;
+		
+		//set game background to black
+		g2d.setColor(Color.BLACK);
+		g2d.fillRect(0, 0, windowWidth, windowHeight);
+		
+		g2d.setColor(Color.WHITE);
+		ball.draw(g2d);
 
 	}
 
