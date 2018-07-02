@@ -7,7 +7,7 @@ public class Ball {
 	double xAcc = 0;
 	double yAcc = .02;
 	double xVel = 0;
-	double yVel = -3;
+	double yVel = -5;
 	boolean canClick = true;
 	Color color;
 	
@@ -51,7 +51,17 @@ public class Ball {
 			yVel = -1 * (yVel*.7);
 			if (yVel < 1 && yVel > 0)
 				yVel = yVel*yVel;
+			xVel = xVel * .990;
 		}
+		if (body.getMinX() <= 0) {
+			body.x = 0;
+			xVel = xVel * -1 * .9;
+		}
+		if (body.getMaxX() >= windowWidth) {
+			body.x = windowWidth - body.getWidth();
+			xVel = xVel * -1 * .9;
+		}
+		
 	}
 	
 	private void kickBall(InputHandler input) {
@@ -61,7 +71,11 @@ public class Ball {
 			if (yVel >= 0)
 				yVel = -3;
 			else yVel += -3;
+			
+			xVel = 3*(body.getCenterX() - click.x)/body.getWidth();
 		}
+		
+		
 		
 	}
 
