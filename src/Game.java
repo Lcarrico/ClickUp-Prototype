@@ -23,7 +23,7 @@ public class Game extends GameEngine {
 	}
 
 	void update() {
-		ball.update(input);
+		ball.update(input, windowWidth, windowHeight);
 		
 		
 		if (input.isKeyDown(KeyEvent.VK_ESCAPE)) {

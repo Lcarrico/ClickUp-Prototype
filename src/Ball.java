@@ -5,9 +5,10 @@ import java.awt.geom.Point2D;
 
 public class Ball {
 	double xAcc = 0;
-	double yAcc = 0;
+	double yAcc = .02;
 	double xVel = 0;
-	double yVel = 0;
+	double yVel = -3;
+	boolean canClick = true;
 	Color color;
 	
 	
@@ -31,22 +32,35 @@ public class Ball {
 		
 	}
 	
-	public void update(InputHandler input) {
-		if (input.wasClicked()) {
+	public void update(InputHandler input, double windowWidth, double windowHeight) {
+		if (!input.isMouseDown()) {
+			canClick = true;
+		}
+		else if (canClick) {
 			kickBall(input);
+			canClick = false;
 		}
 		
 		xVel += xAcc;
 		yVel += yAcc;
 		body.x += xVel;
 		body.y += yVel;
+		
+		if (body.getMaxY() >= windowHeight) {
+			body.y = windowHeight - body.height;
+			yVel = -1 * (yVel*.7);
+			if (yVel < 1 && yVel > 0)
+				yVel = yVel*yVel;
+		}
 	}
 	
 	private void kickBall(InputHandler input) {
 		Point2D.Double click = new Point2D.Double(input.MouseX(), input.MouseY());
 		
 		if (body.contains(click)) {
-			yVel = -1;
+			if (yVel >= 0)
+				yVel = -3;
+			else yVel += -3;
 		}
 		
 	}
